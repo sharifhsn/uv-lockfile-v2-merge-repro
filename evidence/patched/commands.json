@@ -1,0 +1,364 @@
+[
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "init",
+      "-b",
+      "main"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "Initialized empty Git repository in <results>/patched/repo/.git/\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<patched-uv>",
+      "lock",
+      "--script",
+      "report.py"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "Resolved 12 packages in 61ms\nwarning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.\n"
+  },
+  {
+    "argv": [
+      "<patched-uv>",
+      "run",
+      "--locked",
+      "--script",
+      "report.py"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "    Sample report     \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n\u2503 Name    \u2503 Quantity \u2503\n\u2521\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2529\n\u2502 Example \u2502 17       \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\nVERSIONS={\"httpx\": \"0.27.0\", \"rich\": \"13.7.1\", \"tomli\": \"2.0.1\"}\n",
+    "stderr": "warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.\nInstalled 12 packages in 33ms\n"
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "add",
+      "report.py",
+      "report.py.lock"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "commit",
+      "-m",
+      "Add locked report script"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "[main (root-commit) 68607ec] Add locked report script\n 2 files changed, 166 insertions(+)\n create mode 100644 report.py\n create mode 100644 report.py.lock\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "rev-parse",
+      "HEAD"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "68607ec7c57b6dc100b4e7c5034052ec9d8f3dbd\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "switch",
+      "-c",
+      "upgrade-httpx"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "Switched to a new branch 'upgrade-httpx'\n"
+  },
+  {
+    "argv": [
+      "<patched-uv>",
+      "add",
+      "--script",
+      "report.py",
+      "httpx>=0.27.2,<0.28"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.\nResolved 12 packages in 12ms\n"
+  },
+  {
+    "argv": [
+      "<patched-uv>",
+      "run",
+      "--locked",
+      "--script",
+      "report.py"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "    Sample report     \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n\u2503 Name    \u2503 Quantity \u2503\n\u2521\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2529\n\u2502 Example \u2502 17       \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\nVERSIONS={\"httpx\": \"0.27.2\", \"rich\": \"13.7.1\", \"tomli\": \"2.0.1\"}\n",
+    "stderr": "warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.\nUninstalled 1 package in 5ms\nInstalled 1 package in 6ms\n"
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "diff"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "diff --git a/report.py b/report.py\nindex 087af17..d4ebe46 100644\n--- a/report.py\n+++ b/report.py\n@@ -1,7 +1,7 @@\n # /// script\n # requires-python = \">=3.12\"\n # dependencies = [\n-#     \"httpx>=0.27,<0.28\",\n+#     \"httpx>=0.27.2,<0.28\",\n #     \"tomli>=2,<3\",\n #     \"rich>=13.7,<14\",\n # ]\ndiff --git a/report.py.lock b/report.py.lock\nindex d6622a1..5703941 100644\n--- a/report.py.lock\n+++ b/report.py.lock\n@@ -3,7 +3,7 @@ requires-python = \">=3.12\"\n \n [workspace]\n dependencies = [\n-    { name = \"httpx\", specifier = \">=0.27,<0.28\" },\n+    { name = \"httpx\", specifier = \">=0.27.2,<0.28\" },\n \n     { name = \"rich\", specifier = \">=13.7,<14\" },\n \n@@ -52,7 +52,7 @@ wheels = [\n \n [[package]]\n name = \"httpx\"\n-version = \"0.27.0\"\n+version = \"0.27.2\"\n source = { registry = \"../wheelhouse\" }\n dependencies = [\n     \"anyio\",\n@@ -62,7 +62,7 @@ dependencies = [\n     \"sniffio\",\n ]\n wheels = [\n-    { path = \"httpx-0.27.0-py3-none-any.whl\" },\n+    { path = \"httpx-0.27.2-py3-none-any.whl\" },\n ]\n \n [[package]]\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "add",
+      "report.py",
+      "report.py.lock"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "commit",
+      "-m",
+      "Require the HTTPX update"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "[upgrade-httpx e45a815] Require the HTTPX update\n 2 files changed, 4 insertions(+), 4 deletions(-)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "switch",
+      "main"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "Switched to branch 'main'\n"
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "switch",
+      "-c",
+      "upgrade-rich"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "Switched to a new branch 'upgrade-rich'\n"
+  },
+  {
+    "argv": [
+      "<patched-uv>",
+      "add",
+      "--script",
+      "report.py",
+      "rich>=13.8,<14"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.\nResolved 12 packages in 12ms\n"
+  },
+  {
+    "argv": [
+      "<patched-uv>",
+      "run",
+      "--locked",
+      "--script",
+      "report.py"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "    Sample report     \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n\u2503 Name    \u2503 Quantity \u2503\n\u2521\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2529\n\u2502 Example \u2502 17       \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\nVERSIONS={\"httpx\": \"0.27.0\", \"rich\": \"13.8.0\", \"tomli\": \"2.0.1\"}\n",
+    "stderr": "warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.\nUninstalled 2 packages in 25ms\nInstalled 2 packages in 9ms\n"
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "diff"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "diff --git a/report.py b/report.py\nindex 087af17..feed02e 100644\n--- a/report.py\n+++ b/report.py\n@@ -3,7 +3,7 @@\n # dependencies = [\n #     \"httpx>=0.27,<0.28\",\n #     \"tomli>=2,<3\",\n-#     \"rich>=13.7,<14\",\n+#     \"rich>=13.8,<14\",\n # ]\n # ///\n \ndiff --git a/report.py.lock b/report.py.lock\nindex d6622a1..9384868 100644\n--- a/report.py.lock\n+++ b/report.py.lock\n@@ -5,7 +5,7 @@ requires-python = \">=3.12\"\n dependencies = [\n     { name = \"httpx\", specifier = \">=0.27,<0.28\" },\n \n-    { name = \"rich\", specifier = \">=13.7,<14\" },\n+    { name = \"rich\", specifier = \">=13.8,<14\" },\n \n     { name = \"tomli\", specifier = \">=2,<3\" },\n ]\n@@ -102,14 +102,14 @@ wheels = [\n \n [[package]]\n name = \"rich\"\n-version = \"13.7.1\"\n+version = \"13.8.0\"\n source = { registry = \"../wheelhouse\" }\n dependencies = [\n     \"markdown-it-py\",\n     \"pygments\",\n ]\n wheels = [\n-    { path = \"rich-13.7.1-py3-none-any.whl\" },\n+    { path = \"rich-13.8.0-py3-none-any.whl\" },\n ]\n \n [[package]]\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "add",
+      "report.py",
+      "report.py.lock"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "commit",
+      "-m",
+      "Require the Rich update"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "[upgrade-rich a8ebc01] Require the Rich update\n 2 files changed, 4 insertions(+), 4 deletions(-)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "switch",
+      "upgrade-httpx"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "Switched to branch 'upgrade-httpx'\n"
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "merge",
+      "--no-ff",
+      "--no-edit",
+      "upgrade-rich"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "Auto-merging report.py\nAuto-merging report.py.lock\nMerge made by the 'ort' strategy.\n report.py      | 2 +-\n report.py.lock | 6 +++---\n 2 files changed, 4 insertions(+), 4 deletions(-)\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "diff",
+      "--name-only",
+      "--diff-filter=U"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "status",
+      "--short"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "log",
+      "--graph",
+      "--all",
+      "--oneline"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "*   163dff7 Merge branch 'upgrade-rich' into upgrade-httpx\n|\\  \n| * a8ebc01 Require the Rich update\n* | e45a815 Require the HTTPX update\n|/  \n* 68607ec Add locked report script\n",
+    "stderr": ""
+  },
+  {
+    "argv": [
+      "<patched-uv>",
+      "lock",
+      "--script",
+      "report.py",
+      "--check"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": "warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.\nResolved 12 packages in 7ms\n"
+  },
+  {
+    "argv": [
+      "<patched-uv>",
+      "run",
+      "--locked",
+      "--script",
+      "report.py"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "    Sample report     \n\u250f\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2533\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2513\n\u2503 Name    \u2503 Quantity \u2503\n\u2521\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2547\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2529\n\u2502 Example \u2502 17       \u2502\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2534\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518\nVERSIONS={\"httpx\": \"0.27.2\", \"rich\": \"13.8.0\", \"tomli\": \"2.0.1\"}\n",
+    "stderr": "warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.\nUninstalled 1 package in 4ms\nInstalled 1 package in 6ms\n"
+  },
+  {
+    "argv": [
+      "<git>",
+      "-c",
+      "commit.gpgsign=false",
+      "status",
+      "--porcelain"
+    ],
+    "cwd": "<results>/patched/repo",
+    "exit": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+]

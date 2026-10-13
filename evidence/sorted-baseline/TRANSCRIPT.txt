@@ -1,0 +1,259 @@
+$ git init -b main
+exit: 0
+Initialized empty Git repository in <results>/sorted-baseline/repo/.git/
+
+
+$ uv lock --script report.py
+exit: 0
+
+Resolved 12 packages in 56ms
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+
+$ uv run --locked --script report.py
+exit: 0
+    Sample report     
+┏━━━━━━━━━┳━━━━━━━━━━┓
+┃ Name    ┃ Quantity ┃
+┡━━━━━━━━━╇━━━━━━━━━━┩
+│ Example │ 17       │
+└─────────┴──────────┘
+VERSIONS={"httpx": "0.27.0", "rich": "13.7.1", "tomli": "2.0.1"}
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Installed 12 packages in 41ms
+
+$ git add report.py report.py.lock
+exit: 0
+
+
+
+$ git commit -m 'Add locked report script'
+exit: 0
+[main (root-commit) d13f39a] Add locked report script
+ 2 files changed, 164 insertions(+)
+ create mode 100644 report.py
+ create mode 100644 report.py.lock
+
+
+$ git rev-parse HEAD
+exit: 0
+d13f39a9672329a12a2f119d36d4bfc0120c632b
+
+
+$ git switch -c upgrade-httpx
+exit: 0
+
+Switched to a new branch 'upgrade-httpx'
+
+$ uv add --script report.py 'httpx>=0.27.2,<0.28'
+exit: 0
+
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Resolved 12 packages in 11ms
+
+$ uv run --locked --script report.py
+exit: 0
+    Sample report     
+┏━━━━━━━━━┳━━━━━━━━━━┓
+┃ Name    ┃ Quantity ┃
+┡━━━━━━━━━╇━━━━━━━━━━┩
+│ Example │ 17       │
+└─────────┴──────────┘
+VERSIONS={"httpx": "0.27.2", "rich": "13.7.1", "tomli": "2.0.1"}
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Uninstalled 1 package in 5ms
+Installed 1 package in 7ms
+
+$ git diff
+exit: 0
+diff --git a/report.py b/report.py
+index e8fee13..420c187 100644
+--- a/report.py
++++ b/report.py
+@@ -1,7 +1,7 @@
+ # /// script
+ # requires-python = ">=3.12"
+ # dependencies = [
+-#     "httpx>=0.27,<0.28",
++#     "httpx>=0.27.2,<0.28",
+ #     "rich>=13.7,<14",
+ #     "tomli>=2,<3",
+ # ]
+diff --git a/report.py.lock b/report.py.lock
+index 770747f..5ff9048 100644
+--- a/report.py.lock
++++ b/report.py.lock
+@@ -3,7 +3,7 @@ requires-python = ">=3.12"
+ 
+ [workspace]
+ dependencies = [
+-    { name = "httpx", specifier = ">=0.27,<0.28" },
++    { name = "httpx", specifier = ">=0.27.2,<0.28" },
+     { name = "rich", specifier = ">=13.7,<14" },
+     { name = "tomli", specifier = ">=2,<3" },
+ ]
+@@ -50,7 +50,7 @@ wheels = [
+ 
+ [[package]]
+ name = "httpx"
+-version = "0.27.0"
++version = "0.27.2"
+ source = { registry = "../wheelhouse" }
+ dependencies = [
+     "anyio",
+@@ -60,7 +60,7 @@ dependencies = [
+     "sniffio",
+ ]
+ wheels = [
+-    { path = "httpx-0.27.0-py3-none-any.whl" },
++    { path = "httpx-0.27.2-py3-none-any.whl" },
+ ]
+ 
+ [[package]]
+
+
+$ git add report.py report.py.lock
+exit: 0
+
+
+
+$ git commit -m 'Require the HTTPX update'
+exit: 0
+[upgrade-httpx bdb6138] Require the HTTPX update
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+
+$ git switch main
+exit: 0
+
+Switched to branch 'main'
+
+$ git switch -c upgrade-rich
+exit: 0
+
+Switched to a new branch 'upgrade-rich'
+
+$ uv add --script report.py 'rich>=13.8,<14'
+exit: 0
+
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Resolved 12 packages in 13ms
+
+$ uv run --locked --script report.py
+exit: 0
+    Sample report     
+┏━━━━━━━━━┳━━━━━━━━━━┓
+┃ Name    ┃ Quantity ┃
+┡━━━━━━━━━╇━━━━━━━━━━┩
+│ Example │ 17       │
+└─────────┴──────────┘
+VERSIONS={"httpx": "0.27.0", "rich": "13.8.0", "tomli": "2.0.1"}
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Uninstalled 2 packages in 30ms
+Installed 2 packages in 8ms
+
+$ git diff
+exit: 0
+diff --git a/report.py b/report.py
+index e8fee13..6cad169 100644
+--- a/report.py
++++ b/report.py
+@@ -2,7 +2,7 @@
+ # requires-python = ">=3.12"
+ # dependencies = [
+ #     "httpx>=0.27,<0.28",
+-#     "rich>=13.7,<14",
++#     "rich>=13.8,<14",
+ #     "tomli>=2,<3",
+ # ]
+ # ///
+diff --git a/report.py.lock b/report.py.lock
+index 770747f..4cc7cca 100644
+--- a/report.py.lock
++++ b/report.py.lock
+@@ -4,7 +4,7 @@ requires-python = ">=3.12"
+ [workspace]
+ dependencies = [
+     { name = "httpx", specifier = ">=0.27,<0.28" },
+-    { name = "rich", specifier = ">=13.7,<14" },
++    { name = "rich", specifier = ">=13.8,<14" },
+     { name = "tomli", specifier = ">=2,<3" },
+ ]
+ 
+@@ -100,14 +100,14 @@ wheels = [
+ 
+ [[package]]
+ name = "rich"
+-version = "13.7.1"
++version = "13.8.0"
+ source = { registry = "../wheelhouse" }
+ dependencies = [
+     "markdown-it-py",
+     "pygments",
+ ]
+ wheels = [
+-    { path = "rich-13.7.1-py3-none-any.whl" },
++    { path = "rich-13.8.0-py3-none-any.whl" },
+ ]
+ 
+ [[package]]
+
+
+$ git add report.py report.py.lock
+exit: 0
+
+
+
+$ git commit -m 'Require the Rich update'
+exit: 0
+[upgrade-rich e68583a] Require the Rich update
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+
+$ git switch upgrade-httpx
+exit: 0
+
+Switched to branch 'upgrade-httpx'
+
+$ git merge --no-ff --no-edit upgrade-rich
+exit: 1
+Auto-merging report.py
+CONFLICT (content): Merge conflict in report.py
+Auto-merging report.py.lock
+CONFLICT (content): Merge conflict in report.py.lock
+Automatic merge failed; fix conflicts and then commit the result.
+
+
+$ git diff --name-only --diff-filter=U
+exit: 0
+report.py
+report.py.lock
+
+
+$ git status --short
+exit: 0
+UU report.py
+UU report.py.lock
+
+
+$ git log --graph --all --oneline
+exit: 0
+* bdb6138 Require the HTTPX update
+| * e68583a Require the Rich update
+|/  
+* d13f39a Add locked report script
+
+
+$ git add report.py
+exit: 0
+
+
+
+$ uv run --locked --script report.py
+exit: 2
+
+error: Failed to parse `uv.lock`
+  cause: TOML parse error at line 7, column 5
+           |
+         7 |     { name = "httpx", specifier = ">=0.27.2,<0.28" },
+           |     ^
+         missing comma between array elements, expected `,`

@@ -1,0 +1,10 @@
+{
+  "merge_exit": 1,
+  "conflicting_files": [
+    "report.py.lock"
+  ],
+  "base_commit": "dd4c4f53b776a3f6e1a70adeefec07738e67565a",
+  "metadata_free": true,
+  "run_after_source_resolution_exit": 2,
+  "run_error": "error: Failed to parse `uv.lock`\n  cause: TOML parse error at line 7, column 5\n           |\n         7 |     { name = \"httpx\", specifier = \">=0.27.2,<0.28\" },\n           |     ^\n         missing comma between array elements, expected `,`\n"
+}

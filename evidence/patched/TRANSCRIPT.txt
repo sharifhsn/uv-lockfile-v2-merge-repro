@@ -1,0 +1,269 @@
+$ git init -b main
+exit: 0
+Initialized empty Git repository in <results>/patched/repo/.git/
+
+
+$ uv lock --script report.py
+exit: 0
+
+Resolved 12 packages in 61ms
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+
+$ uv run --locked --script report.py
+exit: 0
+    Sample report     
+┏━━━━━━━━━┳━━━━━━━━━━┓
+┃ Name    ┃ Quantity ┃
+┡━━━━━━━━━╇━━━━━━━━━━┩
+│ Example │ 17       │
+└─────────┴──────────┘
+VERSIONS={"httpx": "0.27.0", "rich": "13.7.1", "tomli": "2.0.1"}
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Installed 12 packages in 33ms
+
+$ git add report.py report.py.lock
+exit: 0
+
+
+
+$ git commit -m 'Add locked report script'
+exit: 0
+[main (root-commit) 68607ec] Add locked report script
+ 2 files changed, 166 insertions(+)
+ create mode 100644 report.py
+ create mode 100644 report.py.lock
+
+
+$ git rev-parse HEAD
+exit: 0
+68607ec7c57b6dc100b4e7c5034052ec9d8f3dbd
+
+
+$ git switch -c upgrade-httpx
+exit: 0
+
+Switched to a new branch 'upgrade-httpx'
+
+$ uv add --script report.py 'httpx>=0.27.2,<0.28'
+exit: 0
+
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Resolved 12 packages in 12ms
+
+$ uv run --locked --script report.py
+exit: 0
+    Sample report     
+┏━━━━━━━━━┳━━━━━━━━━━┓
+┃ Name    ┃ Quantity ┃
+┡━━━━━━━━━╇━━━━━━━━━━┩
+│ Example │ 17       │
+└─────────┴──────────┘
+VERSIONS={"httpx": "0.27.2", "rich": "13.7.1", "tomli": "2.0.1"}
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Uninstalled 1 package in 5ms
+Installed 1 package in 6ms
+
+$ git diff
+exit: 0
+diff --git a/report.py b/report.py
+index 087af17..d4ebe46 100644
+--- a/report.py
++++ b/report.py
+@@ -1,7 +1,7 @@
+ # /// script
+ # requires-python = ">=3.12"
+ # dependencies = [
+-#     "httpx>=0.27,<0.28",
++#     "httpx>=0.27.2,<0.28",
+ #     "tomli>=2,<3",
+ #     "rich>=13.7,<14",
+ # ]
+diff --git a/report.py.lock b/report.py.lock
+index d6622a1..5703941 100644
+--- a/report.py.lock
++++ b/report.py.lock
+@@ -3,7 +3,7 @@ requires-python = ">=3.12"
+ 
+ [workspace]
+ dependencies = [
+-    { name = "httpx", specifier = ">=0.27,<0.28" },
++    { name = "httpx", specifier = ">=0.27.2,<0.28" },
+ 
+     { name = "rich", specifier = ">=13.7,<14" },
+ 
+@@ -52,7 +52,7 @@ wheels = [
+ 
+ [[package]]
+ name = "httpx"
+-version = "0.27.0"
++version = "0.27.2"
+ source = { registry = "../wheelhouse" }
+ dependencies = [
+     "anyio",
+@@ -62,7 +62,7 @@ dependencies = [
+     "sniffio",
+ ]
+ wheels = [
+-    { path = "httpx-0.27.0-py3-none-any.whl" },
++    { path = "httpx-0.27.2-py3-none-any.whl" },
+ ]
+ 
+ [[package]]
+
+
+$ git add report.py report.py.lock
+exit: 0
+
+
+
+$ git commit -m 'Require the HTTPX update'
+exit: 0
+[upgrade-httpx e45a815] Require the HTTPX update
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+
+$ git switch main
+exit: 0
+
+Switched to branch 'main'
+
+$ git switch -c upgrade-rich
+exit: 0
+
+Switched to a new branch 'upgrade-rich'
+
+$ uv add --script report.py 'rich>=13.8,<14'
+exit: 0
+
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Resolved 12 packages in 12ms
+
+$ uv run --locked --script report.py
+exit: 0
+    Sample report     
+┏━━━━━━━━━┳━━━━━━━━━━┓
+┃ Name    ┃ Quantity ┃
+┡━━━━━━━━━╇━━━━━━━━━━┩
+│ Example │ 17       │
+└─────────┴──────────┘
+VERSIONS={"httpx": "0.27.0", "rich": "13.8.0", "tomli": "2.0.1"}
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Uninstalled 2 packages in 25ms
+Installed 2 packages in 9ms
+
+$ git diff
+exit: 0
+diff --git a/report.py b/report.py
+index 087af17..feed02e 100644
+--- a/report.py
++++ b/report.py
+@@ -3,7 +3,7 @@
+ # dependencies = [
+ #     "httpx>=0.27,<0.28",
+ #     "tomli>=2,<3",
+-#     "rich>=13.7,<14",
++#     "rich>=13.8,<14",
+ # ]
+ # ///
+ 
+diff --git a/report.py.lock b/report.py.lock
+index d6622a1..9384868 100644
+--- a/report.py.lock
++++ b/report.py.lock
+@@ -5,7 +5,7 @@ requires-python = ">=3.12"
+ dependencies = [
+     { name = "httpx", specifier = ">=0.27,<0.28" },
+ 
+-    { name = "rich", specifier = ">=13.7,<14" },
++    { name = "rich", specifier = ">=13.8,<14" },
+ 
+     { name = "tomli", specifier = ">=2,<3" },
+ ]
+@@ -102,14 +102,14 @@ wheels = [
+ 
+ [[package]]
+ name = "rich"
+-version = "13.7.1"
++version = "13.8.0"
+ source = { registry = "../wheelhouse" }
+ dependencies = [
+     "markdown-it-py",
+     "pygments",
+ ]
+ wheels = [
+-    { path = "rich-13.7.1-py3-none-any.whl" },
++    { path = "rich-13.8.0-py3-none-any.whl" },
+ ]
+ 
+ [[package]]
+
+
+$ git add report.py report.py.lock
+exit: 0
+
+
+
+$ git commit -m 'Require the Rich update'
+exit: 0
+[upgrade-rich a8ebc01] Require the Rich update
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+
+$ git switch upgrade-httpx
+exit: 0
+
+Switched to branch 'upgrade-httpx'
+
+$ git merge --no-ff --no-edit upgrade-rich
+exit: 0
+Auto-merging report.py
+Auto-merging report.py.lock
+Merge made by the 'ort' strategy.
+ report.py      | 2 +-
+ report.py.lock | 6 +++---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+
+$ git diff --name-only --diff-filter=U
+exit: 0
+
+
+
+$ git status --short
+exit: 0
+
+
+
+$ git log --graph --all --oneline
+exit: 0
+*   163dff7 Merge branch 'upgrade-rich' into upgrade-httpx
+|\  
+| * a8ebc01 Require the Rich update
+* | e45a815 Require the HTTPX update
+|/  
+* 68607ec Add locked report script
+
+
+$ uv lock --script report.py --check
+exit: 0
+
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Resolved 12 packages in 7ms
+
+$ uv run --locked --script report.py
+exit: 0
+    Sample report     
+┏━━━━━━━━━┳━━━━━━━━━━┓
+┃ Name    ┃ Quantity ┃
+┡━━━━━━━━━╇━━━━━━━━━━┩
+│ Example │ 17       │
+└─────────┴──────────┘
+VERSIONS={"httpx": "0.27.2", "rich": "13.8.0", "tomli": "2.0.1"}
+warning: The `lockfile-v2` feature is highly experimental. The lockfile format may change incompatibly in patch releases.
+Uninstalled 1 package in 4ms
+Installed 1 package in 6ms
+
+$ git status --porcelain
+exit: 0
+
+
